@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { foodSliceActions } from "../../store/food-slice.js";
+//import { foodSliceActions } from "../../store/food-slice.js";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -10,19 +10,20 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 
 const HomePage = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const userInput = useSelector((state) => state.foodSlice.userInput);
 
   let navigate = useNavigate();
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState(" ");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //dispatch(foodSliceActions.setUserInput(inputText));
 
-    navigate(`/search/${inputText}`);
+    navigate(`/search/${inputText.trim()}`);
   };
+
   return (
     <Container maxWidth="sm">
       <h1>Calory Calculator</h1>
@@ -39,8 +40,8 @@ const HomePage = () => {
             value={
               userInput.length === 0
                 ? inputText
-                : inputText.length === 0
-                ? dispatch(foodSliceActions.setUserInput(""))
+                : inputText === " "
+                ? userInput
                 : inputText
             }
           />

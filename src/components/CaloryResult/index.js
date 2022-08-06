@@ -7,6 +7,7 @@ import { foodSliceActions } from "../../store/food-slice.js";
 import CaloryBreakdown from "../CaloryBreakdown/CaloryBreakdown";
 
 const REACT_API_KEY = "8f9c86444382c61d90e0c605b07f6f98";
+
 const CaloryResult = () => {
   const dispatch = useDispatch();
 
