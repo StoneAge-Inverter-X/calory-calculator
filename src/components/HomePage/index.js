@@ -11,15 +11,15 @@ import Stack from "@mui/material/Stack";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
   const userInput = useSelector((state) => state.foodSlice.userInput);
-  const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
-  const totalCalory = useSelector((state) => state.foodSlice.totalCalory);
 
   let navigate = useNavigate();
   const [inputText, setInputText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //dispatch(foodSliceActions.setUserInput(inputText));
 
     navigate(`/search/${inputText}`);
   };
@@ -34,8 +34,15 @@ const HomePage = () => {
             variant="outlined"
             onChange={(e) => {
               setInputText(e.target.value);
+              //dispatch(foodSliceActions.setUserInput(e.target.value));
             }}
-            value={inputText}
+            value={
+              userInput.length === 0
+                ? inputText
+                : inputText.length === 0
+                ? dispatch(foodSliceActions.setUserInput(""))
+                : inputText
+            }
           />
 
           <Button type="submit" variant="contained">

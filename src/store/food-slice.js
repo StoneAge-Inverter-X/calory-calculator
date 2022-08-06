@@ -1,18 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialFoodState = {
-  userInput: [],
+  userInput: "",
   apiOutput: [],
   totalCalory: 0,
   isLoading: true,
+  cacheFoodNames: [],
+  cacheFoodData: {},
 };
 
 const foodSlice = createSlice({
   name: "food",
   initialState: initialFoodState,
   reducers: {
-    setIsloading(state) {
-      state.isLoading = false;
+    setIsloading(state, action) {
+      state.isLoading = action.payload;
     },
     setUserInput(state, action) {
       console.log(action.payload);
@@ -29,6 +31,17 @@ const foodSlice = createSlice({
 
     setTotalCalory(state, action) {
       state.totalCalory = action.payload;
+    },
+    setCacheFoodNames(state, action) {
+      console.log(action.payload);
+
+      state.cacheFoodNames.push(action.payload);
+      console.log(state.cacheFoodNames);
+    },
+    setCacheFoodData(state, action) {
+      console.log(action.payload);
+      state.cacheFoodData[action.payload[0]] = action.payload[1];
+      console.log(state.cacheFoodData);
     },
   },
 });
