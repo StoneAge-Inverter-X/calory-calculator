@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 //import { foodSliceActions } from "../../store/food-slice.js";
 
 import Button from "@mui/material/Button";

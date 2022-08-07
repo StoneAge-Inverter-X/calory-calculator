@@ -12,7 +12,7 @@ const CaloryResult = () => {
   const dispatch = useDispatch();
 
   const userInput = useSelector((state) => state.foodSlice.userInput);
-  const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
+  //const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
   const isLoading = useSelector((state) => state.foodSlice.isLoading);
   const cacheFoodNames = useSelector((state) => state.foodSlice.cacheFoodNames);
   const cacheFoodData = useSelector((state) => state.foodSlice.cacheFoodData);
@@ -27,7 +27,7 @@ const CaloryResult = () => {
 
     const inputText = params.queryText;
 
-    //!!!imp:use userInput to store each serch querytext, if it changes fetch, no change no fetch
+    //!!imp:use userInput to store each serch querytext, if it changes fetch, no change no fetch
     if (inputText === userInput) {
       dispatch(foodSliceActions.setIsloading(false));
       return;
