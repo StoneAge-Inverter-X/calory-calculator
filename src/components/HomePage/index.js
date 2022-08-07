@@ -38,6 +38,7 @@ const HomePage = () => {
               //dispatch(foodSliceActions.setUserInput(e.target.value));
             }}
             value={
+              //bug: the ' 'search should be ignored in CaloryResult.js
               userInput.length === 0
                 ? inputText
                 : inputText === " "
