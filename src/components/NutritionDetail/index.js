@@ -50,10 +50,6 @@ const NutritionDetial = () => {
   const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
   const foodNutrition = apiOutput[params.foodIdex][1].nutrients;
   return (
-    // <p>
-    //   {params.foodIdex}..{apiOutput[params.foodIdex][1].nutrients.FAT}
-    // </p>
-
     <Container maxWidth="md">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
@@ -137,7 +133,7 @@ const NutritionDetial = () => {
             </List>
           </Grid>
           <Grid item xs={6} md={8}>
-            <ImageList sx={{ width: "200%", height: "50vh", margin: "2px" }}>
+            <ImageList sx={{ width: "200%", height: "100vh", margin: "2px" }}>
               <ImageListItem key={apiOutput[params.foodIdex][1].foodId}>
                 <img
                   src={apiOutput[params.foodIdex][1].image}
