@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialFoodState = {
+  isAuthed: false,
   userInput: "",
   apiOutput: [],
   totalCalory: 0,
@@ -13,6 +14,10 @@ const foodSlice = createSlice({
   name: "food",
   initialState: initialFoodState,
   reducers: {
+    setIsAuthed(state, action) {
+      state.isAuthed = action.payload;
+    },
+
     setIsloading(state, action) {
       state.isLoading = action.payload;
     },

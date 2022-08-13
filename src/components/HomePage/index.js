@@ -16,13 +16,41 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
+import "./index.css";
+
+const usernameMock = "ab";
+const pswMock = "12";
+
 const HomePage = () => {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const userInput = useSelector((state) => state.foodSlice.userInput);
+  const isAuthed = useSelector((state) => state.foodSlice.isAuthed);
 
-  let navigate = useNavigate();
   const [inputText, setInputText] = useState(" ");
+  const [userName, setUserName] = useState("");
+  const [userPsw, setUserPsw] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log(userName, userPsw);
+
+    if (isAuthed) {
+      setUserName("");
+      setUserPsw("");
+      dispatch(foodSliceActions.setIsAuthed(false));
+
+      return;
+    } else if (userName === usernameMock && userPsw === pswMock) {
+      setUserName("");
+      setUserPsw("");
+      dispatch(foodSliceActions.setIsAuthed(true));
+    } else {
+      alert("wrong ");
+      dispatch(foodSliceActions.setIsAuthed(false));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +88,44 @@ const HomePage = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Calory Calculator
             </Typography>
-            <Button color="inherit">Login</Button>
+            {/* <Button color="inherit">Login</Button> */}
+
+            <form onSubmit={handleLogin}>
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                justifyContent="space-evenly"
+              >
+                {isAuthed || (
+                  <TextField
+                    id="username-field"
+                    label="Username (please input:ab)"
+                    size="small"
+                    onChange={(e) => {
+                      setUserName(e.target.value);
+                      //dispatch(foodSliceActions.setUserInput(e.target.value));
+                    }}
+                    value={userName}
+                  />
+                )}
+                {isAuthed || (
+                  <TextField
+                    id="standard-password-input"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    onChange={(e) => {
+                      setUserPsw(e.target.value);
+                      //dispatch(foodSliceActions.setUserInput(e.target.value));
+                    }}
+                  />
+                )}
+                <Button type="submit" variant="contained" color="success">
+                  {isAuthed ? "Logout" : "Login"}
+                </Button>
+              </Stack>
+            </form>
           </Toolbar>
         </AppBar>
       </Box>
@@ -73,6 +138,7 @@ const HomePage = () => {
             justifyContent="space-evenly"
           >
             <TextField
+              disabled={!isAuthed}
               fullWidth
               id="search-field"
               label="Enter Food List (eg:1,apple;2,beef)"
