@@ -162,7 +162,12 @@ const HomePage = () => {
               }
             />
 
-            <Button type="submit" variant="contained" color="success">
+            <Button
+              type="submit"
+              variant="contained"
+              color="success"
+              disabled={!isAuthed}
+            >
               Calculate it
             </Button>
             <Button
@@ -170,6 +175,7 @@ const HomePage = () => {
               variant="contained"
               onClick={handleResetButton}
               color="success"
+              disabled={!isAuthed}
             >
               Reset entry
             </Button>
