@@ -40,6 +40,9 @@ const HomePage = () => {
       setUserName("");
       setUserPsw("");
       dispatch(foodSliceActions.setIsAuthed(false));
+      dispatch(foodSliceActions.setUserInput(""));
+
+      navigate("/");
 
       return;
     } else if (userName === usernameMock && userPsw === pswMock) {
@@ -73,7 +76,7 @@ const HomePage = () => {
 
   return (
     <Container maxWidth="md">
-      <Box sx={{ flexGrow: 1, mb: 5 }}>
+      <Box sx={{ flexGrow: 1, mb: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <IconButton
@@ -100,7 +103,8 @@ const HomePage = () => {
                 {isAuthed || (
                   <TextField
                     id="username-field"
-                    label="Username (please input:ab)"
+                    label="username:ab,psw:12"
+                    defaultValue="userName:ab,psw:12"
                     size="small"
                     onChange={(e) => {
                       setUserName(e.target.value);
@@ -114,6 +118,7 @@ const HomePage = () => {
                     id="standard-password-input"
                     label="Password"
                     type="password"
+                    size="small"
                     autoComplete="current-password"
                     onChange={(e) => {
                       setUserPsw(e.target.value);
