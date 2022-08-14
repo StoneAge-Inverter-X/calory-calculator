@@ -22,8 +22,6 @@ const foodSlice = createSlice({
       state.isLoading = action.payload;
     },
     setUserInput(state, action) {
-      console.log(action.payload);
-
       state.userInput = action.payload;
       console.log(state.userInput);
     },
@@ -41,12 +39,12 @@ const foodSlice = createSlice({
       console.log(action.payload);
 
       state.cacheFoodNames.push(action.payload);
-      console.log(state.cacheFoodNames);
+      // console.log(state.cacheFoodNames);
     },
     setCacheFoodData(state, action) {
       console.log(action.payload);
       state.cacheFoodData[action.payload[0]] = action.payload[1];
-      console.log(state.cacheFoodData);
+      //console.log(state.cacheFoodData);
     },
   },
 });

@@ -13,6 +13,8 @@ const CaloryResult = () => {
   const dispatch = useDispatch();
 
   const userInput = useSelector((state) => state.foodSlice.userInput);
+  const isAuthed = useSelector((state) => state.foodSlice.isAuthed);
+
   //const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
   const isLoading = useSelector((state) => state.foodSlice.isLoading);
   const cacheFoodNames = useSelector((state) => state.foodSlice.cacheFoodNames);
@@ -103,17 +105,17 @@ const CaloryResult = () => {
   }, [params.queryText, cacheFoodData, cacheFoodNames, dispatch, userInput]);
 
   return (
-    <div>
-      <h2>Total Calory is:{totalCalory} KCal</h2>
+    <>
+      {isAuthed && (
+        <div>
+          <h2>Total Calory is:{totalCalory} KCal</h2>
 
-      {!isLoading && <CaloryBreakdown />}
+          {!isLoading && <CaloryBreakdown />}
 
-      {isLoading && <p>loading data</p>}
-
-      {/* <p>data from store:{apiOutput[0][1]}</p>  ==5th:{userInput[2][0]}
-      ==6th {userInput[2][1]}  ==firt:{userInput[0][0]}==second :{userInput[0][1]}
-      ==third:{userInput[1][0]}==forth {userInput[1][1]}*/}
-    </div>
+          {isLoading && <p>loading data</p>}
+        </div>
+      )}
+    </>
   );
 };
 

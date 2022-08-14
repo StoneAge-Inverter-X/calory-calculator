@@ -50,7 +50,7 @@ const HomePage = () => {
       setUserPsw("");
       dispatch(foodSliceActions.setIsAuthed(true));
     } else {
-      alert("wrong ");
+      alert("wrong password or username ");
       dispatch(foodSliceActions.setIsAuthed(false));
     }
   };
