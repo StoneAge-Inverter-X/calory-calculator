@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialHistoryState = {
   history: [
-    "abc",
-    "123",
     // {
     //   historyID: "0",
     //   userName: "",
@@ -22,7 +20,9 @@ const historySlice = createSlice({
   initialState: initialHistoryState,
   reducers: {
     addToHistory(state, action) {
+      console.log(action.payload);
       state.history.push(action.payload);
+      console.log(state.history.length);
     },
   },
 });

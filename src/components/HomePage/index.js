@@ -27,6 +27,7 @@ const HomePage = () => {
 
   const userInput = useSelector((state) => state.foodSlice.userInput);
   const isAuthed = useSelector((state) => state.foodSlice.isAuthed);
+  const currentUser = useSelector((state) => state.foodSlice.currentUser);
 
   const [inputText, setInputText] = useState(" ");
   const [userName, setUserName] = useState("");
@@ -41,6 +42,7 @@ const HomePage = () => {
       setUserPsw("");
       dispatch(foodSliceActions.setIsAuthed(false));
       dispatch(foodSliceActions.setUserInput(""));
+      dispatch(foodSliceActions.setCurrentUser(""));
 
       navigate("/");
 
@@ -49,6 +51,7 @@ const HomePage = () => {
       setUserName("");
       setUserPsw("");
       dispatch(foodSliceActions.setIsAuthed(true));
+      dispatch(foodSliceActions.setCurrentUser(userName));
     } else {
       alert("wrong password or username ");
       dispatch(foodSliceActions.setIsAuthed(false));
@@ -91,7 +94,14 @@ const HomePage = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Calory Calculator
             </Typography>
-            {/* <Button color="inherit">Login</Button> */}
+            {isAuthed && (
+              <Button
+                color="secondary"
+                onClick={() => navigate(`/history/${currentUser}`)}
+              >
+                Histroy
+              </Button>
+            )}
 
             <form onSubmit={handleLogin}>
               <Stack

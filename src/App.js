@@ -3,6 +3,7 @@ import CaloryResult from "./components/CaloryResult";
 import NutritionDetial from "./components/NutritionDetail";
 import HomePage from "./components/HomePage";
 import PageNotFound from "./components/PageNotFound";
+import UserHistory from "./components/UserHistory";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route path="/search/:queryText" element={<CaloryResult />} />
         </Route>
         <Route path="/food/:foodIdex" element={<NutritionDetial />} />
+        <Route path="/history/:currentUser" element={<UserHistory />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
