@@ -4,12 +4,15 @@ import { historySliceActions } from "../../store/history-slice.js";
 
 import * as React from "react";
 import Button from "@mui/material/Button";
+
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import SaveIcon from "@mui/icons-material/Save";
 
 const CaloryBreakdown = () => {
   const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
@@ -66,13 +69,24 @@ const CaloryBreakdown = () => {
         {apiOutput.map((item, index) => (
           <li key={item[1].foodId}>
             {item[0]} serving {item[1].label}
-            <button onClick={() => navigate(`/food/${index}`)}>
+            <Button
+              type="submit"
+              variant="outlined"
+              color="primary"
+              size="small"
+              endIcon={<KeyboardArrowRightIcon />}
+              onClick={() => navigate(`/food/${index}`)}
+            >
               More Nutrition detail
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        endIcon={<SaveIcon />}
+        onClick={handleClickOpen}
+      >
         Save this to your History
       </Button>
       <Dialog open={open} onClose={handleClose}>

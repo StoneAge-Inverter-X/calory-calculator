@@ -64,8 +64,7 @@ const NutritionDetial = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Calory Calculator/{apiOutput[params.foodIdex][1].label} Nutrition
-              Details
+              {apiOutput[params.foodIdex][1].label} Nutrition Details
             </Typography>
             <Button
               color="inherit"
@@ -89,7 +88,7 @@ const NutritionDetial = () => {
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
-                    <BatteryStdIcon color="secondary" />
+                    <BatteryStdIcon color="primary" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -100,7 +99,7 @@ const NutritionDetial = () => {
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
-                    <SetMealIcon color="success" />
+                    <SetMealIcon color="primary" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -111,7 +110,7 @@ const NutritionDetial = () => {
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
-                    <CurrencyFrancIcon color="action" />
+                    <CurrencyFrancIcon color="primary" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText

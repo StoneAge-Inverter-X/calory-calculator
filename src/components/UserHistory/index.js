@@ -2,8 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { historySliceActions } from "../../store/history-slice.js";
+import { foodSliceActions } from "../../store/food-slice.js";
 
 import * as React from "react";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+
+import Container from "@mui/material/Container";
 import Collapse from "@mui/material/Collapse";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -13,11 +19,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ListIcon from "@mui/icons-material/List";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ListSubheader from "@mui/material/ListSubheader";
-import StarBorder from "@mui/icons-material/StarBorder";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import Button from "@mui/material/Button";
 
@@ -71,16 +80,49 @@ const UserHistory = () => {
     dispatch(historySliceActions.deletHistoryByIndex(historyIndex));
   };
   return (
-    <>
-      <h1>{currentUser}'s Saved History </h1>
+    <Container maxWidth="lg">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              {currentUser}'s Saved History Nutrition Details
+            </Typography>
+            <Button
+              color="inherit"
+              onClick={() => {
+                dispatch(foodSliceActions.setUserInput(""));
+
+                navigate("/");
+              }}
+            >
+              Home
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
       {currentUserHistory.length === 0 && <p>No saved history</p>}
       <List
         sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
+          <ListSubheader
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            component="div"
+            id="nested-list-subheader"
+          >
             {currentUser}'s Saved History
+            <Button>click me to sort</Button>
           </ListSubheader>
         }
       >
@@ -95,10 +137,6 @@ const UserHistory = () => {
               fontSize: 14,
             }}
           >
-            {/* <h2>
-              {item.title} on the date of {item.dateTimeOfMeal}:{" "}
-              {item.totalCalory} KCal
-            </h2> */}
             <ListItemText
               primary={`${item.title} on the date of ${item.dateTimeOfMeal}:
               ${item.totalCalory} KCal`}
@@ -107,7 +145,7 @@ const UserHistory = () => {
             />
             <ListItemButton onClick={handleClick}>
               <ListItemIcon>
-                <InboxIcon />
+                <ListIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Food List" />
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -128,25 +166,30 @@ const UserHistory = () => {
               </List>
             </Collapse>
 
-            {/* <button
-              onClick={(e) => {
-                handleHistoryDelete(e, historyIndex);
-              }}
-            >
-              Delete
-            </button> */}
-            <ListItemButton
+            {/* <ListItemButton
               color="secondary"
+              endIcon={<DeleteIcon />}
               onClick={(e) => {
                 handleHistoryDelete(e, historyIndex);
               }}
             >
               Delete
             </ListItemButton>
+          </ListItem> */}
+
+            <Button
+              color="secondary"
+              endIcon={<DeleteIcon />}
+              onClick={(e) => {
+                handleHistoryDelete(e, historyIndex);
+              }}
+            >
+              Delete
+            </Button>
           </ListItem>
         ))}
       </List>
-    </>
+    </Container>
   );
 };
 
