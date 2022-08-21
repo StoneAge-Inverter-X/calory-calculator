@@ -1,0 +1,9 @@
+.listName {
+  display: block;
+  color: rgb(197, 14, 102);
+  font-size: large;
+}
+
+.deleteButton {
+  float: right;
+}

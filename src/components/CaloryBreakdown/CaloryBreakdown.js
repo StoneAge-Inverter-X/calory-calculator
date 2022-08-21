@@ -13,6 +13,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import SaveIcon from "@mui/icons-material/Save";
+import Stack from "@mui/material/Stack";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 const CaloryBreakdown = () => {
   const apiOutput = useSelector((state) => state.foodSlice.apiOutput);
@@ -26,9 +32,20 @@ const CaloryBreakdown = () => {
   //form state:
   const [titleInput, setTitleInput] = React.useState("");
   const [dateTimeInput, setDateTimeInput] = React.useState("");
-
+  //date and time picker:
+  const [dateTimeValue, setDateTimeValue] = React.useState(
+    // new Date("2014-08-18T21:11:54")
+    new Date(Date())
+  );
   //Modal dialogue related
   const [open, setOpen] = React.useState(false);
+
+  //handle date and time picker on change event
+  const handlePickerChange = (newValue) => {
+    console.log(typeof newValue);
+    console.log(newValue);
+    setDateTimeValue(newValue);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,8 +55,8 @@ const CaloryBreakdown = () => {
   };
   const handleSave = () => {
     const dateTime = new Date().toLocaleString();
-    const historyID = currentUser + ">" + dateTime;
-    //console.log(dateTimeInput, titleInput);
+    const historyID = currentUser + ">" + dateTime; //ID = userName + the button click time
+
     // save the history to historySlice
     const newHistoryItem = {
       historyID: historyID,
@@ -47,7 +64,7 @@ const CaloryBreakdown = () => {
       title: titleInput,
       totalCalory: totalCalory,
       apiResult: apiOutput, //same as apiOutput in food-slice.js
-      dateTimeOfMeal: dateTimeInput,
+      dateTimeOfMeal: dateTimeValue,
       userInput: userInput,
       timeSaved: dateTime,
     };
@@ -97,18 +114,22 @@ const CaloryBreakdown = () => {
             Save button.
           </DialogContentText>
           <TextField
+            sx={{
+              mb: 3,
+              mt: 2,
+            }}
             autoFocus
             required
             id="title"
-            label="Title"
-            variant="standard"
+            label="Meal Type"
+            variant="outlined"
             value={titleInput}
             onChange={(e) => {
               setTitleInput(e.target.value);
               //dispatch(foodSliceActions.setUserInput(e.target.value));
             }}
           />
-          <TextField
+          {/* <TextField
             required
             id="datetime"
             label="Date and Time"
@@ -118,7 +139,18 @@ const CaloryBreakdown = () => {
               setDateTimeInput(e.target.value);
               //dispatch(foodSliceActions.setUserInput(e.target.value));
             }}
-          />
+          /> */}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Stack spacing={3}>
+              <DesktopDatePicker
+                label="Date Of the Meal"
+                inputFormat="MM/dd/yyyy"
+                value={dateTimeValue}
+                onChange={handlePickerChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </Stack>
+          </LocalizationProvider>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleSave}>Save</Button>

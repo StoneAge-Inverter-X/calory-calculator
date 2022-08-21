@@ -6,7 +6,7 @@ const initialHistoryState = {
     //   historyID: "ab date time",
     //   userName: "ab",
     //   title: "",
-    //   dateTimeOfMeal: "",
+    //   dateTimeOfMeal: Date Object,
     //   userInput: "",
     //   apiResult: [], //same as apiOutput in food-slice.js
     //   totalCalory: 0,
@@ -16,7 +16,7 @@ const initialHistoryState = {
     //   historyID: "0",
     //   userName: "",
     //   title: "",
-    //   dateTimeOfMeal: "",
+    //   dateTimeOfMeal: Date Object,
     //   userInput: "",
     //   apiResult: [], //same as apiOutput in food-slice.js
     //   totalCalory: 0,

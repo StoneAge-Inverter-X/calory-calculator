@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { historySliceActions } from "../../store/history-slice.js";
 import { foodSliceActions } from "../../store/food-slice.js";
+import styles from "./index.module.css";
+import Card from "../../UIWrapper/Card";
 
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -27,6 +29,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import CircleIcon from "@mui/icons-material/Circle";
 
 import Button from "@mui/material/Button";
 
@@ -80,8 +83,8 @@ const UserHistory = () => {
     dispatch(historySliceActions.deletHistoryByIndex(historyIndex));
   };
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ flexGrow: 1 }}>
+    <Container maxWidth="md">
+      <Box sx={{ flexGrow: 1, mb: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <IconButton
@@ -127,66 +130,67 @@ const UserHistory = () => {
         }
       >
         {currentUserHistory.map((item, historyIndex) => (
-          <ListItem
-            divider="true"
-            sx={{
-              color: "success.dark",
-              display: "inline",
-              fontWeight: "bold",
-              mx: 0.5,
-              fontSize: 14,
-            }}
-          >
-            <ListItemText
-              primary={`${item.title} on the date of ${item.dateTimeOfMeal}:
+          <Card>
+            <ListItem
+              divider="true"
+              sx={{
+                color: "success.dark",
+                display: "inline",
+                fontWeight: "bold",
+                mx: 0.5,
+                fontSize: 14,
+              }}
+            >
+              <ListItemText
+                primary={`${
+                  item.title
+                } on ${item.dateTimeOfMeal.toDateString()}:
               ${item.totalCalory} KCal`}
-              secondary={secondary ? "Secondary text" : null}
-              sx={{ display: "block" }}
-            />
-            <ListItemButton onClick={handleClick}>
-              <ListItemIcon>
-                <ListIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Food List" />
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {item.apiResult.map((foodItem, foodItemIndex) => (
-                  <ListItem>
-                    {/* <li key={foodItem[1].foodId}>
+                secondary={secondary ? "Secondary text" : null}
+                // sx={{ display: "block", fontSize: 34 }}
+                className={styles.listName}
+              />
+              <ListItemButton
+                onClick={handleClick}
+                sx={{ mb: "0px", paddingBottom: "0px" }}
+              >
+                <ListItemIcon>
+                  <ListIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Food List" />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.apiResult.map((foodItem, foodItemIndex) => (
+                    <ListItem>
+                      {/* <li key={foodItem[1].foodId}>
                   {foodItem[0]} serving {foodItem[1].label}
                 </li> */}
-                    <ListItemText
-                      primary={`${foodItem[0]} serving ${foodItem[1].label}`}
-                      secondary={secondary ? "Secondary text" : null}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
+                      <CircleIcon
+                        sx={{ fontSize: 15, mr: "15px", ml: "10px" }}
+                      />
+                      <ListItemText
+                        primary={`${foodItem[0]} serving ${foodItem[1].label}`}
+                        secondary={secondary ? "Secondary text" : null}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
 
-            {/* <ListItemButton
-              color="secondary"
-              endIcon={<DeleteIcon />}
-              onClick={(e) => {
-                handleHistoryDelete(e, historyIndex);
-              }}
-            >
-              Delete
-            </ListItemButton>
-          </ListItem> */}
-
-            <Button
-              color="secondary"
-              endIcon={<DeleteIcon />}
-              onClick={(e) => {
-                handleHistoryDelete(e, historyIndex);
-              }}
-            >
-              Delete
-            </Button>
-          </ListItem>
+              <Button
+                className={styles.deleteButton}
+                color="secondary"
+                endIcon={<DeleteIcon />}
+                onClick={(e) => {
+                  handleHistoryDelete(e, historyIndex);
+                }}
+              >
+                Delete
+              </Button>
+            </ListItem>
+          </Card>
         ))}
       </List>
     </Container>
