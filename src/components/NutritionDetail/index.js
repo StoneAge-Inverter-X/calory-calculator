@@ -82,9 +82,7 @@ const NutritionDetial = () => {
       <Card>
         <Grid container spacing={2}>
           <Grid item xs={6} md={4}>
-            <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-            >
+            <List sx={{ width: "100%", maxWidth: 360 }}>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>

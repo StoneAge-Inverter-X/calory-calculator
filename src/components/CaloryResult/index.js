@@ -6,6 +6,9 @@ import { foodSliceActions } from "../../store/food-slice.js";
 
 import CaloryBreakdown from "../CaloryBreakdown/CaloryBreakdown";
 
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
 //const REACT_API_KEY = "8f9c86444382c61d90e0c605b07f6f98";
 const REACT_API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -108,7 +111,13 @@ const CaloryResult = () => {
     <>
       {isAuthed && (
         <div>
-          <h2>Total Calory is:{totalCalory} KCal</h2>
+          <Typography variant="h5" gutterBottom>
+            Total Calory is:{" "}
+            <Box sx={{ color: "red", display: "inline" }}>
+              {" "}
+              {totalCalory} KCal
+            </Box>
+          </Typography>
 
           {!isLoading && <CaloryBreakdown />}
 

@@ -1,0 +1,22 @@
+.listName {
+  display: inline;
+  color: rgb(35, 14, 197);
+  font-size: large;
+}
+
+.deleteButton {
+  float: right;
+}
+
+.container {
+  background-color: rgba(210, 239, 210, 0.954);
+  padding-bottom: 3em;
+}
+
+.moreNutritionBtn {
+  display: inline;
+}
+
+.saveButton {
+  float: right;
+}
