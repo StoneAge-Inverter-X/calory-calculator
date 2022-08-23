@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<HomePage />}>
           <Route
             index
-            element={<p>Enter a food list to begin: eg:1,apple;2,beef</p>}
+            element={<p>Enter food name and servings to begin.</p>}
           />
           <Route path="/search/:queryText" element={<CaloryResult />} />
         </Route>

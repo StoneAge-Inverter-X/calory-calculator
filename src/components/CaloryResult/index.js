@@ -42,8 +42,10 @@ const CaloryResult = () => {
     // parse inputText
     const outputArray = [];
     for (const section of inputText.toLowerCase().split(";")) {
-      const [mount, foodName] = section.split(",");
-      outputArray.push([mount, foodName]);
+      if (section !== "") {
+        const [mount, foodName] = section.split(",");
+        outputArray.push([mount, foodName]);
+      }
     }
     console.log(outputArray);
 

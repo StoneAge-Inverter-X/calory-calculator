@@ -140,6 +140,7 @@ const CaloryBreakdown = () => {
       <Button
         variant="contained"
         className={styles.saveButton}
+        size="small"
         endIcon={<SaveIcon />}
         onClick={handleClickOpen}
       >

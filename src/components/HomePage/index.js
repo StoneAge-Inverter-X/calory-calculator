@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import "./index.css";
+//import { each } from "immer/dist/internal";
 
 const usernameMock = "ab";
 const pswMock = "12";
@@ -33,7 +34,8 @@ const HomePage = () => {
   const [userName, setUserName] = useState("");
   const [userPsw, setUserPsw] = useState("");
 
-  const [formValues, setFormValues] = useState([{ name: "", email: "" }]);
+  // const [formValues, setFormValues] = useState([{ name: "", email: "" }]);
+  const [formValues, setFormValues] = useState([{ serving: "", foodName: "" }]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -45,6 +47,7 @@ const HomePage = () => {
       dispatch(foodSliceActions.setIsAuthed(false));
       dispatch(foodSliceActions.setUserInput(""));
       dispatch(foodSliceActions.setCurrentUser(""));
+      setFormValues([{ serving: "", foodName: "" }]);
 
       navigate("/");
 
@@ -79,6 +82,7 @@ const HomePage = () => {
     dispatch(foodSliceActions.setUserInput(""));
   };
 
+  // addable form handlers
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
@@ -86,7 +90,7 @@ const HomePage = () => {
   };
 
   let addFormFields = () => {
-    setFormValues([...formValues, { name: "", email: "" }]);
+    setFormValues([...formValues, { serving: "", foodName: "" }]);
   };
 
   let removeFormFields = (i) => {
@@ -97,7 +101,19 @@ const HomePage = () => {
 
   let handleFormSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(formValues));
+    // alert(JSON.stringify(formValues));
+
+    //[{"serving":"111","foodName":"abc"},{"serving":"","foodName":""}]
+    //navigate(`/search/${param.trim()}`);
+
+    let param = "";
+    for (const each of formValues) {
+      if (each.serving.trim() !== "") {
+        param = param + each.serving + "," + each.foodName + ";";
+      }
+    }
+    console.log(param);
+    navigate(`/search/${param}`);
   };
 
   return (
@@ -167,7 +183,7 @@ const HomePage = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Card>
+      {/* <Card>
         <form onSubmit={handleSubmit}>
           <Stack
             direction="row"
@@ -214,27 +230,30 @@ const HomePage = () => {
             </Button>
           </Stack>
         </form>
-      </Card>
+      </Card> */}
       <Card>
         <form onSubmit={handleFormSubmit}>
           {formValues.map((element, index) => (
             <div className="form-inline" key={index}>
-              <label>Name</label>
+              <label>Number of Servings</label>
               <input
-                type="text"
-                name="name"
-                value={element.name || ""}
+                disabled={!isAuthed}
+                type="number"
+                name="serving"
+                value={(isAuthed && element.serving) || ""}
                 onChange={(e) => handleChange(index, e)}
               />
-              <label>Email</label>
+              <label>Food Name</label>
               <input
+                disabled={!isAuthed}
                 type="text"
-                name="email"
-                value={element.email || ""}
+                name="foodName"
+                value={(isAuthed && element.foodName) || ""}
                 onChange={(e) => handleChange(index, e)}
               />
               {index ? (
                 <button
+                  disabled={!isAuthed}
                   type="button"
                   className="button remove"
                   onClick={() => removeFormFields(index)}
@@ -246,13 +265,18 @@ const HomePage = () => {
           ))}
           <div className="button-section">
             <button
+              disabled={!isAuthed}
               className="button add"
               type="button"
               onClick={() => addFormFields()}
             >
               Add
             </button>
-            <button className="button submit" type="submit">
+            <button
+              disabled={!isAuthed}
+              className="button submit"
+              type="submit"
+            >
               Submit
             </button>
           </div>
