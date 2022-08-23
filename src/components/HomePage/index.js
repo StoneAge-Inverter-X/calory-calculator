@@ -33,6 +33,8 @@ const HomePage = () => {
   const [userName, setUserName] = useState("");
   const [userPsw, setUserPsw] = useState("");
 
+  const [formValues, setFormValues] = useState([{ name: "", email: "" }]);
+
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(userName, userPsw);
@@ -75,6 +77,27 @@ const HomePage = () => {
     console.log("reset button is clicked");
     setInputText("");
     dispatch(foodSliceActions.setUserInput(""));
+  };
+
+  let handleChange = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
+  };
+
+  let addFormFields = () => {
+    setFormValues([...formValues, { name: "", email: "" }]);
+  };
+
+  let removeFormFields = (i) => {
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues);
+  };
+
+  let handleFormSubmit = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(formValues));
   };
 
   return (
@@ -190,6 +213,49 @@ const HomePage = () => {
               Reset entry
             </Button>
           </Stack>
+        </form>
+      </Card>
+      <Card>
+        <form onSubmit={handleFormSubmit}>
+          {formValues.map((element, index) => (
+            <div className="form-inline" key={index}>
+              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                value={element.name || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label>Email</label>
+              <input
+                type="text"
+                name="email"
+                value={element.email || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              {index ? (
+                <button
+                  type="button"
+                  className="button remove"
+                  onClick={() => removeFormFields(index)}
+                >
+                  Remove
+                </button>
+              ) : null}
+            </div>
+          ))}
+          <div className="button-section">
+            <button
+              className="button add"
+              type="button"
+              onClick={() => addFormFields()}
+            >
+              Add
+            </button>
+            <button className="button submit" type="submit">
+              Submit
+            </button>
+          </div>
         </form>
       </Card>
       <Card>
