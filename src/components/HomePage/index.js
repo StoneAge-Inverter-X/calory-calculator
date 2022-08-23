@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import styles from "./index.module.css";
 
 import { foodSliceActions } from "../../store/food-slice.js";
 import Card from "../../UIWrapper/Card";
@@ -16,7 +17,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import "./index.css";
+// import "./index.css";
 //import { each } from "immer/dist/internal";
 
 const usernameMock = "ab";
@@ -234,23 +235,44 @@ const HomePage = () => {
       <Card>
         <form onSubmit={handleFormSubmit}>
           {formValues.map((element, index) => (
-            <div className="form-inline" key={index}>
-              <label>Number of Servings</label>
-              <input
-                disabled={!isAuthed}
-                type="number"
-                name="serving"
-                value={(isAuthed && element.serving) || ""}
-                onChange={(e) => handleChange(index, e)}
-              />
-              <label>Food Name</label>
-              <input
-                disabled={!isAuthed}
-                type="text"
-                name="foodName"
-                value={(isAuthed && element.foodName) || ""}
-                onChange={(e) => handleChange(index, e)}
-              />
+            // <div className="form-inline" key={index}>
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="center"
+              justifyContent="flex-start"
+              key={index}
+            >
+              <Box className={styles.inputRow}>
+                <label>Number of Servings:</label>
+                {/* <input
+                  disabled={!isAuthed}
+                  type="number"
+                  name="serving"
+                  value={(isAuthed && element.serving) || ""}
+                  onChange={(e) => handleChange(index, e)}
+                /> */}
+                <TextField
+                  disabled={!isAuthed}
+                  type="text"
+                  name="serving"
+                  label="Meal Type"
+                  variant="outlined"
+                  size="small"
+                  value={(isAuthed && element.serving) || ""}
+                  onChange={(e) => handleChange(index, e)}
+                />
+              </Box>
+              <Box className={styles.inputRow}>
+                <label>Food Name:</label>
+                <input
+                  disabled={!isAuthed}
+                  type="text"
+                  name="foodName"
+                  value={(isAuthed && element.foodName) || ""}
+                  onChange={(e) => handleChange(index, e)}
+                />
+              </Box>
               {index ? (
                 <button
                   disabled={!isAuthed}
@@ -261,7 +283,8 @@ const HomePage = () => {
                   Remove
                 </button>
               ) : null}
-            </div>
+              {/* </div> */}
+            </Stack>
           ))}
           <div className="button-section">
             <button
