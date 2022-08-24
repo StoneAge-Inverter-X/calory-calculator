@@ -4,6 +4,8 @@
 
 .inputRow {
   margin-top: 10px;
+  margin-left: 20px;
+  display: inline-flex;
 }
 
 .inputServing {

@@ -16,6 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Autocomplete from "@mui/material/Autocomplete";
 
 // import "./index.css";
 //import { each } from "immer/dist/internal";
@@ -84,7 +85,16 @@ const HomePage = () => {
   };
 
   // addable form handlers
+
+  const handleOptionTextClick = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i].foodName = e.target.outerText;
+    setFormValues(newFormValues);
+  };
+
   let handleChange = (i, e) => {
+    // console.log(e.target.input.value);
+
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
@@ -118,7 +128,7 @@ const HomePage = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Box sx={{ flexGrow: 1, mb: 1 }}>
         <AppBar position="static">
           <Toolbar>
@@ -244,7 +254,7 @@ const HomePage = () => {
               key={index}
             >
               <Box className={styles.inputRow}>
-                <label>Number of Servings:</label>
+                {/* <label>Number of Servings:</label> */}
                 {/* <input
                   disabled={!isAuthed}
                   type="number"
@@ -255,53 +265,96 @@ const HomePage = () => {
                 <TextField
                   disabled={!isAuthed}
                   type="text"
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   name="serving"
-                  label="Meal Type"
-                  variant="outlined"
+                  label="servings"
+                  variant="standard"
                   size="small"
+                  required="true"
+                  color="success"
+                  helperText="Please enter a number"
                   value={(isAuthed && element.serving) || ""}
                   onChange={(e) => handleChange(index, e)}
+                  sx={{ mr: "30px", width: 1 / 2 }}
                 />
-              </Box>
-              <Box className={styles.inputRow}>
-                <label>Food Name:</label>
-                <input
+
+                {/* <label>Food Name:</label> */}
+                {/* <TextField
                   disabled={!isAuthed}
                   type="text"
                   name="foodName"
+                  label="food name"
+                  variant="standard"
+                  size="small"
+                  required="true"
+                  color="success"
+                  helperText="Please enter a food name"
                   value={(isAuthed && element.foodName) || ""}
                   onChange={(e) => handleChange(index, e)}
+                /> */}
+
+                <Autocomplete
+                  disabled={!isAuthed}
+                  onChange={(e) => handleOptionTextClick(index, e)}
+                  freeSolo
+                  id="option-text"
+                  sx={{ mr: "30px", width: 1 / 2 }}
+                  options={top100Food.map((option) => option.title)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      name="foodName"
+                      disabled={!isAuthed}
+                      label="food name"
+                      size="small"
+                      required="true"
+                      color="success"
+                      variant="standard"
+                      helperText="Please enter a food name"
+                      value={(isAuthed && element.foodName) || ""}
+                      onChange={(e) => handleChange(index, e)}
+                      InputProps={{
+                        ...params.InputProps,
+                        type: "search",
+                      }}
+                    />
+                  )}
                 />
               </Box>
               {index ? (
-                <button
+                <Button
                   disabled={!isAuthed}
                   type="button"
                   className="button remove"
+                  color="error"
+                  size="small"
                   onClick={() => removeFormFields(index)}
                 >
                   Remove
-                </button>
+                </Button>
               ) : null}
               {/* </div> */}
             </Stack>
           ))}
           <div className="button-section">
-            <button
+            <Button
               disabled={!isAuthed}
               className="button add"
               type="button"
+              size="small"
+              sx={{ ml: "3px" }}
               onClick={() => addFormFields()}
             >
               Add
-            </button>
-            <button
+            </Button>
+            <Button
               disabled={!isAuthed}
               className="button submit"
+              size="small"
               type="submit"
             >
-              Submit
-            </button>
+              Calculate
+            </Button>
           </div>
         </form>
       </Card>
@@ -312,4 +365,48 @@ const HomePage = () => {
   );
 };
 
+const top100Food = [
+  { title: "chicken", year: 1994 },
+  { title: "cheese", year: 1972 },
+  { title: "rice", year: 1972 },
+  { title: "tea", year: 1972 },
+  { title: "coffee", year: 1972 },
+  { title: "milk", year: 1972 },
+  { title: "egg", year: 1972 },
+  { title: "tomato", year: 1972 },
+  { title: "apple", year: 1972 },
+  { title: "yogurt", year: 1972 },
+  { title: "bread", year: 1972 },
+  { title: "beef", year: 1972 },
+  { title: "pork", year: 1972 },
+  { title: "garlic", year: 1972 },
+  { title: "lettuce", year: 1972 },
+  { title: "onion", year: 1972 },
+  { title: "cucumber", year: 1972 },
+  { title: "salmon", year: 1972 },
+  { title: "zucchini", year: 1972 },
+  { title: "spinach", year: 1972 },
+  { title: "pumpkin", year: 1972 },
+  { title: "potato", year: 1972 },
+  { title: "sweet potato", year: 1972 },
+  { title: "avocado", year: 1972 },
+  { title: "carrot", year: 1972 },
+  { title: "shallot", year: 1972 },
+  { title: "red capsicum", year: 1972 },
+  { title: "green capsicum", year: 1972 },
+  { title: "radish", year: 1972 },
+  { title: "snow bean", year: 1972 },
+  { title: "broccolini", year: 1972 },
+  { title: "cauliflower", year: 1972 },
+  { title: "round bean", year: 1972 },
+  { title: "button mushroom", year: 1972 },
+  { title: "leek", year: 1972 },
+  { title: "celery", year: 1972 },
+  { title: "pak choy", year: 1972 },
+  { title: "sweet corn", year: 1972 },
+  { title: "eggplant", year: 1972 },
+  { title: "aspatagus", year: 1972 },
+  { title: "parsnip", year: 1972 },
+  { title: "rhubarb", year: 1972 },
+];
 export default HomePage;
