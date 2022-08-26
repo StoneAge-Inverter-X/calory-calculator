@@ -128,7 +128,7 @@ const HomePage = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="md">
       <Box sx={{ flexGrow: 1, mb: 1 }}>
         <AppBar position="static">
           <Toolbar>

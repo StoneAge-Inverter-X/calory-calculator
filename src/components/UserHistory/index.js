@@ -115,7 +115,7 @@ const UserHistory = () => {
 
       {currentUserHistory.length === 0 && <p>No saved history</p>}
       <List
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        sx={{ width: "100%", bgcolor: "background.paper" }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
@@ -124,8 +124,9 @@ const UserHistory = () => {
             component="div"
             id="nested-list-subheader"
           >
-            {currentUser}'s Saved History
-            <Button>click me to sort</Button>
+            <Typography variant="h6" gutterBottom sx={{ mt: 3, ml: -1 }}>
+              {currentUser}'s Saved History
+            </Typography>
           </ListSubheader>
         }
       >

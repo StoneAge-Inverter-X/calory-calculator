@@ -4,6 +4,7 @@ import NutritionDetial from "./components/NutritionDetail";
 import HomePage from "./components/HomePage";
 import PageNotFound from "./components/PageNotFound";
 import UserHistory from "./components/UserHistory";
+import Typography from "@mui/material/Typography";
 
 function App() {
   return (
@@ -12,7 +13,12 @@ function App() {
         <Route path="/" element={<HomePage />}>
           <Route
             index
-            element={<p>Enter food name and servings to begin.</p>}
+            // element={<p>Enter food name and servings to begin.</p>}
+            element={
+              <Typography variant="h7" gutterBottom>
+                Enter food name and servings to begin.
+              </Typography>
+            }
           />
           <Route path="/search/:queryText" element={<CaloryResult />} />
         </Route>
