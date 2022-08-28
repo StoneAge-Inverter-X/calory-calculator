@@ -131,7 +131,7 @@ const HomePage = () => {
     <Container maxWidth="md">
       <Box sx={{ flexGrow: 1, mb: 1 }}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar sx={{ alignItems: "center" }}>
             <IconButton
               size="large"
               edge="start"
@@ -163,9 +163,10 @@ const HomePage = () => {
                 {isAuthed || (
                   <TextField
                     id="username-field"
-                    label="username:ab,psw:12"
-                    defaultValue="userName:ab,psw:12"
+                    label="please enter: ab"
+                    defaultValue="please enter: ab"
                     size="small"
+                    color="warning"
                     onChange={(e) => {
                       setUserName(e.target.value);
                       //dispatch(foodSliceActions.setUserInput(e.target.value));
@@ -176,9 +177,10 @@ const HomePage = () => {
                 {isAuthed || (
                   <TextField
                     id="standard-password-input"
-                    label="Password"
+                    label="please enter: 12"
                     type="password"
                     size="small"
+                    color="warning"
                     autoComplete="current-password"
                     onChange={(e) => {
                       setUserPsw(e.target.value);
